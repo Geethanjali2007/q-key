@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: qkey-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - QRNG_PROVIDER=anu
+      - QRNG_API_URL=https://qrng.anu.edu.au/API/jsonI.php
+      - QRNG_API_KEY=
+      - ALLOW_CSPRNG_FALLBACK=true
+      - DEMO_MODE=true
+      - DATABASE_URL=sqlite:///./data/qkey.db
+      - CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+    volumes:
+      - qkey-data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: qkey-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  qkey-data:

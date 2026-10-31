@@ -1,0 +1,372 @@
+/* ==========================================================================
+   Q-Key design tokens
+   Palette: deep indigo-black base, quantum-violet primary accent, a cool
+   teal secondary accent for "data" contexts (hashes, hex, throughput).
+   Type: Space Grotesk for headings/UI labels, Inter for body copy,
+   IBM Plex Mono for hex/byte/key material (genuinely data, not decoration).
+   ========================================================================== */
+:root {
+  --bg: #0a0c12;
+  --surface: #12151f;
+  --surface-raised: #171b28;
+  --border: #232838;
+  --border-soft: #1a1e2b;
+
+  --text: #e9ecf3;
+  --text-muted: #8c93a8;
+  --text-faint: #5c6479;
+
+  --accent: #8b7cf6;
+  --accent-soft: rgba(139, 124, 246, 0.14);
+  --accent-strong: #a598ff;
+
+  --teal: #35d0ba;
+  --teal-soft: rgba(53, 208, 186, 0.14);
+
+  --amber: #f5b944;
+  --amber-soft: rgba(245, 185, 68, 0.14);
+
+  --red: #f0616d;
+  --red-soft: rgba(240, 97, 109, 0.14);
+
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(139, 124, 246, 0.08), transparent 45%),
+    radial-gradient(circle at 85% 20%, rgba(53, 208, 186, 0.05), transparent 40%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p { line-height: 1.6; color: var(--text-muted); margin: 0; }
+
+a { color: inherit; }
+
+code, .mono {
+  font-family: var(--font-mono);
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+/* Focus visibility for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ---------------------------------- Layout ------------------------------- */
+.app-shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.page-content {
+  padding: 28px 36px 64px;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+}
+
+.page-header .subtitle {
+  margin-top: 6px;
+  font-size: 14.5px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+@media (max-width: 1100px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 800px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* ---------------------------------- Cards -------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.card-value {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.section {
+  margin-bottom: 28px;
+}
+
+.section-title {
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+/* ---------------------------------- Buttons ------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-raised);
+  color: var(--text);
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.btn:hover { border-color: var(--accent); }
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0a0c12;
+  font-weight: 600;
+}
+
+.btn-primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  border-color: var(--red);
+  color: var(--red);
+  background: transparent;
+}
+.btn-danger:hover { background: var(--red-soft); }
+
+/* ---------------------------------- Badges ------------------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.badge-online { color: var(--teal); border-color: rgba(53,208,186,0.35); background: var(--teal-soft); }
+.badge-online .badge-dot { background: var(--teal); }
+
+.badge-offline { color: var(--red); border-color: rgba(240,97,109,0.35); background: var(--red-soft); }
+.badge-offline .badge-dot { background: var(--red); }
+
+.badge-warning { color: var(--amber); border-color: rgba(245,185,68,0.35); background: var(--amber-soft); }
+.badge-warning .badge-dot { background: var(--amber); }
+
+.badge-neutral { color: var(--text-muted); }
+
+/* ---------------------------------- Tables ------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+th {
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text);
+}
+
+tr:last-child td { border-bottom: none; }
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+/* ---------------------------------- Forms -------------------------------- */
+input, select, textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: 9px 12px;
+  font-size: 14px;
+  font-family: var(--font-body);
+  width: 100%;
+}
+
+label {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.field { margin-bottom: 16px; }
+
+/* ---------------------------------- Misc --------------------------------- */
+.hex-block {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  word-break: break-all;
+  color: var(--teal);
+  line-height: 1.7;
+}
+
+.note {
+  font-size: 13px;
+  color: var(--text-faint);
+  border-left: 2px solid var(--border);
+  padding-left: 12px;
+  margin-top: 14px;
+}
+
+.error-banner {
+  background: var(--red-soft);
+  border: 1px solid rgba(240,97,109,0.35);
+  color: var(--red);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  margin-bottom: 16px;
+}
+
+.flow-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.flow-step:last-child { border-bottom: none; }
+
+.flow-step .step-index {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.flow-step .step-title { font-weight: 500; font-size: 14px; }
+.flow-step .step-detail { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+
+.activity-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 13.5px;
+  padding: 20px 0;
+}

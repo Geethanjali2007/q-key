@@ -1,0 +1,40 @@
+# Environment variables and secrets
+.env
+!.env.example
+
+# Encryption keys and sensitive files
+.wrap_key
+*.pem
+*.key
+
+# Python virtual environment
+.venv/
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Node.js dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+.idea/
